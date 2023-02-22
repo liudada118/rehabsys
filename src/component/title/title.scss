@@ -1,0 +1,27 @@
+
+.titleContent{
+  background-color: #fff;
+  padding-top: 20px;
+  ul.ant-menu-overflow{
+    display: flex !important; 
+    justify-content: center !important;
+    font-size: 20px;
+  }
+  
+  .sysName{
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  .ant-menu-item-selected{
+    color: #000 !important;
+    font-weight: bold;
+  }
+  .ant-menu-item-selected::after{
+    border-bottom-color: #f59558 !important;
+  }
+  .ant-menu-item:hover::after{
+    border-bottom-color: #f59558 !important;
+  }
+}
+
