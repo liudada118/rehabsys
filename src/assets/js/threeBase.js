@@ -1,34 +1,6 @@
-import React, { useEffect } from 'react'
 import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { moveTrack3D, project2D } from '../../assets/js/threeUtil';
-const ALT_KEY = 18;
-const CTRL_KEY = 17;
-const CMD_KEY = 91;
-
-
-
-function animate(darts) {
-  console.log(darts)
-  requestAnimationFrame(animate.bind(this, darts));
-  darts.controls.update();
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01; 
-  if (darts.run) {
-    // console.log(cube2)
-    if (darts.child.position.z < 0) {
-      darts.run = false
-      darts.end = true
-      return
-    }
-    darts.cube2.visible = false
-    moveTrack3D(darts, 200)
-
-  }
-  // console.log(111)
-  darts.renderer.render(darts.scene, darts.camera);
-}
 
 class Darts {
 
@@ -82,9 +54,9 @@ class Darts {
 
   // 加载物体模型
   loadObject() {
-    const cube = this.loadPlane("./img/bg.png" , 2000 , 2000)
+    const cube = this.loadPlane("./img/bg.png", 2000, 2000)
     this.scene.add(cube);
-    this.cube2 = this.loadPlane("./img/demo1.png" , 200 , 200)  //new THREE.Mesh(geometry2, material2);
+    this.cube2 = this.loadPlane("./img/demo1.png", 200, 200)  //new THREE.Mesh(geometry2, material2);
     this.cube2.position.z = 20
     this.scene.add(this.cube2);
     const loader = new GLTFLoader();
@@ -106,13 +78,13 @@ class Darts {
    * @param {number} height 
    * @returns 
    */
-  loadPlane(img , width , height){
+  loadPlane(img, width, height) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const texture = new THREE.TextureLoader().load(img)
-    const material = new THREE.MeshPhysicalMaterial({ map: texture,color : '#fff', transparent: true });
+    const material = new THREE.MeshPhysicalMaterial({ map: texture, color: '#fff', transparent: true });
     const cube = new THREE.Mesh(geometry, material);
     return cube
-  } 
+  }
 
   // 绑定飞镖移动的事件
   addEvent() {
@@ -139,7 +111,7 @@ class Darts {
 
 
         if (this.cube2) {
-          project2D(this.child , this.cube2 , 700)
+          project2D(this.child, this.cube2, 700)
         }
       }
 
@@ -148,18 +120,4 @@ class Darts {
   }
 
   // 渲染
-}
-
-export default function Canvas() {
- 
-  useEffect(() => {
-    const darts = new Darts()
-    darts.initScene()
-    darts.loadObject()
-    darts.addEvent()
-    animate(darts)
-  }, [])
-  return (
-    <div></div>
-  )
 }
