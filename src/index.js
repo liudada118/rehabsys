@@ -16,6 +16,8 @@ import Hand from './page/hand/Hand';
 import Ocs from './page/hand/ocs/Three'
 import Fishing from './page/fishing/Fishing';
 import Demo from './page/demo/Demo';
+import Orange from './page/orange/Orange';
+import Canvas from './page/canvas/Canvas';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +29,8 @@ const router = createBrowserRouter(
       <Route path="ocs" element={<Ocs />} />
       <Route path="fish" element={<Fishing />} />
       <Route path="demo" element={<Demo />} />
+      <Route path="orange" element={<Orange />} />
+      <Route path="canvas" element={<Canvas />} />
       {/* <Route path="dashboard" element={<Dashboard />} /> */}
       {/* ... etc. */}
     </>

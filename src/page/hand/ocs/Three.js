@@ -27,40 +27,44 @@ let rightHand, rightHand11,
   rightHand43,
   rightHand51,
   rightHand52,
-  rightHand53, res, fingerArr = new Array(5).fill(0), rotateArr = new Array(2).fill(0), oldData = 0,fingerResArr , rotationResArr
+  rightHand53, res, fingerArr = new Array(5).fill(0), rotateArr = new Array(2).fill(0), oldData = 0, fingerResArr, rotationResArr, vlauex = -0.59, vlauey = -0.25, vlauez = 1.18
 
 function animate() {
+  // console.log(first)
   requestAnimationFrame(animate);
   controls.update()
   renderer.render(scene, camera);
   let newDate = new Date().getTime()
-  
-  
 
- 
+
+
+
   if (fingerResArr) {
     // console.log(fingerArr[0],res[6])
     const realArr = [fingerResArr[6], fingerResArr[3], fingerResArr[2], fingerResArr[1], fingerResArr[4]]
-
+    // console.log(realArr)
     for (let i = 0; i < realArr.length; i++) {
-      fingerArr[i] = Number(Number(fingerArr[i] + (realArr[i] - fingerArr[i]) / 20).toFixed(3))
+      fingerArr[i] = fingerArr[i] + (realArr[i] - fingerArr[i]) / 10
       // fingerArr[i] = fingerArr[i]
+      // console.log(fingerArr[i] )
+      fingerArr[i] = fingerArr[i] > 20 ? 20 : fingerArr[i]
     }
- 
-    const flagValue = [40, 60, 60, 60, 40]
-    if (!rightHand12) {// 大拇指
+    // console.log(realArr,fingerArr)
+
+    const flagValue = [15, 15, 15, 15, 15]
+    if (rightHand12) {// 大拇指
       {
         rightHand11.rotation.x = -1.48 + Math.PI * 0 / 12 * (fingerArr[0] / flagValue[0])
         rightHand11.rotation.y = -0.38 + Math.PI * 0 / 12 * (fingerArr[0] / flagValue[0])
-        rightHand11.rotation.z = 2.32 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
+        rightHand11.rotation.z = 2.32 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0]) > 2.32 + Math.PI * 3 / 12 * (2) ? 2.32 + Math.PI * 3 / 12 * (2) : 2.32 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
 
         rightHand12.rotation.x = -0.18 + Math.PI * 0 / 12 * (fingerArr[0] / flagValue[0])
-        rightHand12.rotation.y = 0.02 - Math.PI * 1 / 12 * (fingerArr[0] / flagValue[0])
-        rightHand12.rotation.z = 0.15 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
+        rightHand12.rotation.y = 0.02 - Math.PI * 1 / 12 * (fingerArr[0] / flagValue[0]) < 0.02 - Math.PI * 1 / 12 * (2) ? 0.02 - Math.PI * 1 / 12 * (2) : 0.02 - Math.PI * 1 / 12 * (fingerArr[0] / flagValue[0])
+        rightHand12.rotation.z = 0.15 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0]) > 0.15 + Math.PI * 3 / 12 * (2) ? 0.15 + Math.PI * 3 / 12 * (2) : 0.15 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
 
         rightHand13.rotation.x = -0.40 - Math.PI * 0 / 12 * (fingerArr[0] / flagValue[0])
         rightHand13.rotation.y = 0.02 - Math.PI * 0 / 12 * (fingerArr[0] / flagValue[0])
-        rightHand13.rotation.z = -0.28 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
+        rightHand13.rotation.z = -0.28 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0]) > -0.28 + Math.PI * 3 / 12 * (2) ? -0.28 + Math.PI * 3 / 12 * (2) : -0.28 + Math.PI * 3 / 12 * (fingerArr[0] / flagValue[0])
 
       }
       // console.log(rightHand11.rotation.z)
@@ -68,14 +72,14 @@ function animate() {
       // 21 [0.12,0.37,1.18] 22[-0.24,-0.01,0] 23 [0.19,0.05,0.06]
       { // 食指
         rightHand21.rotation.x = 0.12 + Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
-        rightHand21.rotation.y = 0.37 + Math.PI * 4 / 12 * (fingerArr[1] / flagValue[1])
+        rightHand21.rotation.y = 0.37 + Math.PI * 4 / 12 * (fingerArr[1] / flagValue[1]) > 0.37 + Math.PI * 4 / 12 * (2) ? 0.37 + Math.PI * 4 / 12 * (2) : 0.37 + Math.PI * 4 / 12 * (fingerArr[1] / flagValue[1])
         rightHand21.rotation.z = 1.18 + Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
 
-        rightHand22.rotation.x = -0.24 + Math.PI * 3 / 12 * (fingerArr[1] / flagValue[1])
+        rightHand22.rotation.x = -0.24 + Math.PI * 3 / 12 * (fingerArr[1] / flagValue[1]) > -0.24 + Math.PI * 3 / 12 * (2) ? -0.24 + Math.PI * 3 / 12 * (2) : -0.24 + Math.PI * 3 / 12 * (fingerArr[1] / flagValue[1])
         rightHand22.rotation.y = -0.01 + Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
         rightHand22.rotation.z = 0 + Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
 
-        rightHand23.rotation.x = 0.19 + Math.PI * 2 / 12 * (fingerArr[1] / flagValue[1])
+        rightHand23.rotation.x = 0.19 + Math.PI * 2 / 12 * (fingerArr[1] / flagValue[1]) > 0.19 + Math.PI * 2 / 12 * (2) ? 0.19 + Math.PI * 2 / 12 * (2) : 0.19 + Math.PI * 2 / 12 * (fingerArr[1] / flagValue[1])
         rightHand23.rotation.y = 0.05 - Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
         rightHand23.rotation.z = 0.06 + Math.PI * 0 / 12 * (fingerArr[1] / flagValue[1])
       }
@@ -83,14 +87,14 @@ function animate() {
       // 31 [-0.59,-0.25,1.18] 32[ 0.39,-0.06,-0.25] 33[-0.41,-0.18,0.03]
       {// 中指
         rightHand31.rotation.x = -0.59 + Math.PI * 0 / 12 * (fingerArr[2] / flagValue[2])
-        rightHand31.rotation.y = -0.25 + Math.PI * 5 / 12 * (fingerArr[2] / flagValue[2])
+        rightHand31.rotation.y = -0.25 + Math.PI * 5 / 12 * (fingerArr[2] / flagValue[2]) > -0.25 + Math.PI * 5 / 12 * (2) ? -0.25 + Math.PI * 5 / 12 * (2) : -0.25 + Math.PI * 5 / 12 * (fingerArr[2] / flagValue[2])
         rightHand31.rotation.z = 1.18 + Math.PI * 0 / 12 * (fingerArr[2] / flagValue[2])
 
-        rightHand32.rotation.x = 0.39 + Math.PI * 3 / 12 * (fingerArr[2] / flagValue[2])
-        rightHand32.rotation.y = -0.06 - Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2])
-        rightHand32.rotation.z = -0.25 + Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2])
+        rightHand32.rotation.x = 0.39 + Math.PI * 3 / 12 * (fingerArr[2] / flagValue[2]) > 0.39 + Math.PI * 3 / 12 * (2) ? 0.39 + Math.PI * 3 / 12 * (2) : 0.39 + Math.PI * 3 / 12 * (fingerArr[2] / flagValue[2])
+        rightHand32.rotation.y = -0.06 - Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2]) < -0.06 - Math.PI * 1 / 12 * (2) ? -0.06 - Math.PI * 1 / 12 * (2) : -0.06 - Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2])
+        rightHand32.rotation.z = -0.25 + Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2]) > -0.25 + Math.PI * 1 / 12 * (2) ? -0.25 + Math.PI * 1 / 12 * (2) : -0.25 + Math.PI * 1 / 12 * (fingerArr[2] / flagValue[2])
 
-        rightHand33.rotation.x = -0.41 + Math.PI * 2 / 12 * (fingerArr[2] / flagValue[2])
+        rightHand33.rotation.x = -0.41 + Math.PI * 2 / 12 * (fingerArr[2] / flagValue[2]) > -0.41 + Math.PI * 2 / 12 * (2) ? -0.41 + Math.PI * 2 / 12 * (2) : -0.41 + Math.PI * 2 / 12 * (fingerArr[2] / flagValue[2])
         rightHand33.rotation.y = -0.18 - Math.PI * 0 / 12 * (fingerArr[2] / flagValue[2])
         rightHand33.rotation.z = 0.03 + Math.PI * 0 / 12 * (fingerArr[2] / flagValue[2])
       }
@@ -98,43 +102,43 @@ function animate() {
       // 41 [-1.02,0.27,0.10] 42[0.13,-0.05,0.14] 43[-0.05,0.05,0.04]
       // 无名指指
       {
-        rightHand41.rotation.x = -1.02 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand41.rotation.x = -1.02 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3]) > -1.02 + Math.PI * 3 / 12 * (2) ? -1.02 + Math.PI * 3 / 12 * (2) : -1.02 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
         rightHand41.rotation.y = 0.27 + Math.PI * 0 / 12 * (fingerArr[3] / flagValue[3])
-        rightHand41.rotation.z = 0.10 - Math.PI * 2 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand41.rotation.z = 0.10 - Math.PI * 2 / 12 * (fingerArr[3] / flagValue[3]) < 0.10 - Math.PI * 2 / 12 * (2) ? 0.10 - Math.PI * 2 / 12 * (2) : 0.10 - Math.PI * 2 / 12 * (fingerArr[3] / flagValue[3])
 
-        rightHand42.rotation.x = 0.13 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand42.rotation.x = 0.13 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3]) > 0.13 + Math.PI * 3 / 12 * (2) ? 0.13 + Math.PI * 3 / 12 * (2) : 0.13 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
         rightHand42.rotation.y = -0.05 + Math.PI * 0 / 12 * (fingerArr[3] / flagValue[3])
-        rightHand42.rotation.z = 0.14 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand42.rotation.z = 0.14 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3]) < 0.14 - Math.PI * 1 / 12 * (2) ? 0.14 - Math.PI * 1 / 12 * (2) : 0.14 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3])
 
-        rightHand43.rotation.x = -0.05 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
-        rightHand43.rotation.y = 0.05 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand43.rotation.x = -0.05 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3]) > -0.05 + Math.PI * 3 / 12 * (2) ? -0.05 + Math.PI * 3 / 12 * (2) : -0.05 + Math.PI * 3 / 12 * (fingerArr[3] / flagValue[3])
+        rightHand43.rotation.y = 0.05 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3]) < 0.05 - Math.PI * 1 / 12 * (2) ? 0.05 - Math.PI * 1 / 12 * (2) : 0.05 - Math.PI * 1 / 12 * (fingerArr[3] / flagValue[3])
         rightHand43.rotation.z = 0.04 - Math.PI * 0 / 12 * (fingerArr[3] / flagValue[3])
       }
 
       // 51 [-1.41,0.91,0.35] 52[0.24,-0.04,-0.36] 53[-0.16,-0.19,0.18]
       // 小拇指
       {
-        rightHand51.rotation.x = -1.41 + Math.PI * 4 / 12 * (fingerArr[4] / flagValue[4])
-        rightHand51.rotation.y = 0.91 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
-        rightHand51.rotation.z = 0.35 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
+        rightHand51.rotation.x = -1.41 + Math.PI * 4 / 12 * (fingerArr[4] / flagValue[4]) > -1.41 + Math.PI * 4 / 12 * (2) ? -1.41 + Math.PI * 4 / 12 * (2) : -1.41 + Math.PI * 4 / 12 * (fingerArr[4] / flagValue[4])
+        rightHand51.rotation.y = 0.91 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4]) < 0.91 - Math.PI * 3 / 12 * (2) ? 0.91 - Math.PI * 3 / 12 * (2) : 0.91 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
+        rightHand51.rotation.z = 0.35 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4]) < 0.35 - Math.PI * 3 / 12 * (2) ? 0.35 - Math.PI * 3 / 12 * (2) : 0.35 - Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
 
-        rightHand52.rotation.x = 0.24 + Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
+        rightHand52.rotation.x = 0.24 + Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4]) > 0.24 + Math.PI * 3 / 12 * (2) ? 0.24 + Math.PI * 3 / 12 * (2) : 0.24 + Math.PI * 3 / 12 * (fingerArr[4] / flagValue[4])
         rightHand52.rotation.y = -0.04 + Math.PI * 0 / 12 * (fingerArr[4] / flagValue[4])
         rightHand52.rotation.z = -0.36 + Math.PI * 0 / 12 * (fingerArr[4] / flagValue[4])
 
-        rightHand53.rotation.x = -0.16 + Math.PI * 1 / 12 * (fingerArr[4] / flagValue[4])
+        rightHand53.rotation.x = -0.16 + Math.PI * 1 / 12 * (fingerArr[4] / flagValue[4]) > -0.16 + Math.PI * 1 / 12 * (2) ? -0.16 + Math.PI * 1 / 12 * (2) : -0.16 + Math.PI * 1 / 12 * (fingerArr[4] / flagValue[4])
         rightHand53.rotation.y = -0.19 - Math.PI * 0 / 12 * (fingerArr[4] / flagValue[4])
         rightHand53.rotation.z = 0.18 + Math.PI * 0 / 12 * (fingerArr[4] / flagValue[4])
 
       }
-      
+      // console.log(fingerArr)
     }
-  } 
+  }
   if (rotationResArr) {
 
-    if (rightHand && false) {
-      rightHand.rotation.x = 3.06 - Math.PI + Math.PI * (res[2] / 180)
-      rightHand.rotation.y = -0.55 - Math.PI * (res[1] / 180)
+    if (rightHand) {
+      // rightHand.rotation.x = 3.06 - Math.PI + Math.PI * (rotationResArr[2] / 180)
+      // rightHand.rotation.y = -0.55 - Math.PI * (rotationResArr[1] / 180)
       // rightHand.rotation.z = 0 + Math.PI * 0 / 12 * (fingerArr[4] / flagValue[4])
       // console.log(rightHand.rotation)
     }
@@ -142,10 +146,10 @@ function animate() {
   }
   oldData = newDate
 
-  fingerArr = [70]
+  // fingerArr = new Array(5).fill(90)
   // 11 [-1.48 ,-0.38 , 2.32]  12 [-0.18,0.02,0.15] 13[-0.40,0.02,-0.28]
   // 编写初始化状态
-  if (rightHand12) {
+  if (rightHand12 && false) {
     {
       // rightHand11.rotation.x = -1.48+Math.PI * 2 / 12 * (fingerArr[0] / 40)
       // rightHand12.rotation.z = Math.PI * 2 / 12 * (fingerArr[0] / 40)
@@ -169,64 +173,65 @@ function animate() {
 
     // 21 [0.12,0.37,1.18] 22[-0.24,-0.01,0] 23 [0.19,0.05,0.06]
     { // 食指
-      rightHand21.rotation.x = 0.12 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand21.rotation.y = 0.37 + Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand21.rotation.z = 1.18 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand21.rotation.x = 0.12 + Math.PI * 0 / 12 * (fingerArr[1] / 40)
+      rightHand21.rotation.y = 0.37 + Math.PI * 3 / 12 * (fingerArr[1] / 40)
+      rightHand21.rotation.z = 1.18 + Math.PI * 0 / 12 * (fingerArr[1] / 40)
 
-      rightHand22.rotation.x = -0.24 + Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand22.rotation.y = -0.01 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand22.rotation.z = 0 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand22.rotation.x = -0.24 + Math.PI * 3 / 12 * (fingerArr[1] / 40)
+      rightHand22.rotation.y = -0.01 + Math.PI * 0 / 12 * (fingerArr[1] / 40)
+      rightHand22.rotation.z = 0 + Math.PI * 0 / 12 * (fingerArr[1] / 40)
 
-      rightHand23.rotation.x = 0.19 + Math.PI * 2 / 12 * (fingerArr[0] / 40)
-      rightHand23.rotation.y = 0.05 - Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand23.rotation.z = 0.06 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand23.rotation.x = 0.19 + Math.PI * 2 / 12 * (fingerArr[1] / 40)
+      rightHand23.rotation.y = 0.05 - Math.PI * 0 / 12 * (fingerArr[1] / 40)
+      rightHand23.rotation.z = 0.06 + Math.PI * 0 / 12 * (fingerArr[1] / 40)
     }
 
     // 31 [-0.59,-0.25,1.18] 32[ 0.39,-0.06,-0.25] 33[-0.41,-0.18,0.03]
     {// 中指
-      rightHand31.rotation.x = -0.59 - Math.PI * 1 / 12 * (fingerArr[0] / 40)
-      rightHand31.rotation.y = -0.25 + Math.PI *3 / 12 * (fingerArr[0] / 40)
-      rightHand31.rotation.z = 1.18 - Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand31.rotation.x = -0.59 + (1.11 + 0.59) / 2.25 * (fingerArr[2] / 40)
+      rightHand31.rotation.y = -0.25 + (0.45 + 0.25) / 2.25 * (fingerArr[2] / 40)
+      rightHand31.rotation.z = 1.18 + (-0.82 - 1.18) / 2.25 * (fingerArr[2] / 40)
 
-      rightHand32.rotation.x = 0.39 + Math.PI * 4 / 12 * (fingerArr[0] / 40)
-      rightHand32.rotation.y = -0.06 - Math.PI * 1 / 12 * (fingerArr[0] / 40)
-      rightHand32.rotation.z = -0.25 + Math.PI * 1 / 12 * (fingerArr[0] / 40)
+      rightHand32.rotation.x = 0.39 + (1.31 - 0.39) / 2 * (fingerArr[2] / 40)
+      rightHand32.rotation.y = -0.06 + (-0.45 + 0.06) / 2 * (fingerArr[2] / 40)
+      rightHand32.rotation.z = -0.25 + (-0.72 + 0.25) / 2 * (fingerArr[2] / 40)
 
-      rightHand33.rotation.x = -0.41 + Math.PI * 1 / 12 * (fingerArr[0] / 40)
-      rightHand33.rotation.y = -0.18 - Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand33.rotation.z = 0.03 - Math.PI * 0.5 / 12 * (fingerArr[0] / 40)
+      rightHand33.rotation.x = -0.41 + (0.11 + 0.41) / 2 * (fingerArr[2] / 40)
+      rightHand33.rotation.y = -0.18 + (0.15 + 0.18) / 2 * (fingerArr[2] / 40)
+      rightHand33.rotation.z = 0.03 + (-0.22 - 0.03) / 2 * (fingerArr[2] / 40)
+
     }
 
     // 41 [-1.02,0.27,0.10] 42[0.13,-0.05,0.14] 43[-0.05,0.05,0.04]
     // 无名指指
     {
-      rightHand41.rotation.x = -1.02 + Math.PI * 2 / 12 * (fingerArr[0] / 40)
-      rightHand41.rotation.y = 0.27 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand41.rotation.z = 0.10 - Math.PI * 2 / 12 * (fingerArr[0] / 40)
+      rightHand41.rotation.x = -1.02 + Math.PI * 2 / 12 * (fingerArr[3] / 40)
+      rightHand41.rotation.y = 0.27 - Math.PI * 1 / 12 * (fingerArr[3] / 40)
+      rightHand41.rotation.z = 0.10 - Math.PI * 2 / 12 * (fingerArr[3] / 40)
 
-      rightHand42.rotation.x = 0.13 + Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand42.rotation.y = -0.05 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand42.rotation.z = 0.14 - Math.PI * 1 / 12 * (fingerArr[0] / 40)
+      rightHand42.rotation.x = 0.13 + Math.PI * 3 / 12 * (fingerArr[3] / 40)
+      rightHand42.rotation.y = -0.05 + Math.PI * 0 / 12 * (fingerArr[3] / 40)
+      rightHand42.rotation.z = 0.14 - Math.PI * 1 / 12 * (fingerArr[3] / 40)
 
-      rightHand43.rotation.x = -0.05 + Math.PI * 2 / 12 * (fingerArr[0] / 40)
-      rightHand43.rotation.y = 0.05 - Math.PI * 1 / 12 * (fingerArr[0] / 40)
-      rightHand43.rotation.z = 0.04 - Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand43.rotation.x = -0.05 + Math.PI * 2 / 12 * (fingerArr[3] / 40)
+      rightHand43.rotation.y = 0.05 - Math.PI * 1 / 12 * (fingerArr[3] / 40)
+      rightHand43.rotation.z = 0.04 - Math.PI * 0 / 12 * (fingerArr[3] / 40)
     }
 
     // 51 [-1.41,0.91,0.35] 52[0.24,-0.04,-0.36] 53[-0.16,-0.19,0.18]
     // 小拇指
     {
-      rightHand51.rotation.x = -1.41 + Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand51.rotation.y = 0.91 - Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand51.rotation.z = 0.35 - Math.PI * 3 / 12 * (fingerArr[0] / 40)
+      rightHand51.rotation.x = -1.41 + Math.PI * 3 / 12 * (fingerArr[4] / 40)
+      rightHand51.rotation.y = 0.91 - Math.PI * 3 / 12 * (fingerArr[4] / 40)
+      rightHand51.rotation.z = 0.35 - Math.PI * 2 / 12 * (fingerArr[4] / 40)
 
-      rightHand52.rotation.x = 0.24 + Math.PI * 3 / 12 * (fingerArr[0] / 40)
-      rightHand52.rotation.y = -0.04 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand52.rotation.z = -0.36 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand52.rotation.x = 0.24 + Math.PI * 3 / 12 * (fingerArr[4] / 40)
+      rightHand52.rotation.y = -0.04 + Math.PI * 0 / 12 * (fingerArr[4] / 40)
+      rightHand52.rotation.z = -0.36 + Math.PI * 0 / 12 * (fingerArr[4] / 40)
 
-      rightHand53.rotation.x = -0.16 + Math.PI * 1 / 12 * (fingerArr[0] / 40)
-      rightHand53.rotation.y = -0.19 - Math.PI * 0 / 12 * (fingerArr[0] / 40)
-      rightHand53.rotation.z = 0.18 + Math.PI * 0 / 12 * (fingerArr[0] / 40)
+      rightHand53.rotation.x = -0.16 + Math.PI * 1 / 12 * (fingerArr[4] / 40)
+      rightHand53.rotation.y = -0.19 - Math.PI * 0 / 12 * (fingerArr[4] / 40)
+      rightHand53.rotation.z = 0.18 + Math.PI * 0 / 12 * (fingerArr[4] / 40)
 
     }
   }
@@ -339,9 +344,9 @@ class Canvas extends React.Component {
     ws.onmessage = (e) => {
       // if(i/6 < 1){
       res = JSON.parse(e.data).data
-      if(res && res[0] == 1){
+      if (res && res[0] == 1) {
         fingerResArr = res
-      }else{
+      } else {
         rotationResArr = res
       }
       // console.log(res)
@@ -371,10 +376,21 @@ class Canvas extends React.Component {
 
   render() {
     return (
-      <div
-        style={{ width: "100%", height: "100%" }}
-        id={`canvas1`}
-      ></div>
+      <>
+        {/* <div style={{position : 'fixed' }}>
+        <button onClick={() => {vlauex+=0.1}}>x</button>
+        <button onClick={() => {vlauey+=0.1}}>y</button>
+        <button onClick={() => {vlauez+=0.1}}>z</button>
+        <button onClick={() => {vlauex-=0.1}}>x</button>
+        <button onClick={() => {vlauey-=0.1}}>y</button>
+        <button onClick={() => {vlauez-=0.1}}>z</button>
+        <button onClick={() => {console.log(vlauex,vlauey,vlauez)}}>log</button>
+      </div> */}
+        <div
+          style={{ width: "100%", height: "100%" }}
+          id={`canvas1`}
+        ></div>
+      </>
     )
   }
 }

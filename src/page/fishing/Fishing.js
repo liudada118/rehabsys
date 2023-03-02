@@ -146,7 +146,9 @@ function buildWater() {
       sunColor: 0xffffff,
       // waterColor: 0x001e0f,
       distortionScale: 3.7,
-      fog: scene.fog !== undefined
+      fog: scene.fog !== undefined,
+      transparent : true,
+      opacity : 0
     }
   );
   water.rotation.x = - Math.PI / 2;
