@@ -1,22 +1,33 @@
 import React, { useEffect } from 'react'
 import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { animate, ThreeScene } from '../../assets/js/threeBase';
+import { ThreeScene } from '../../assets/js/threeBase';
 import { moveTrack3D, project2D } from '../../assets/js/threeUtil';
-const ALT_KEY = 18;
-const CTRL_KEY = 17;
-const CMD_KEY = 91;
 
 
 
 
+function animate(darts) {
+  requestAnimationFrame(animate.bind(this, darts));
+  darts.controls.update();
+  if (darts.run) {
+
+    if (darts.child.position.z < 0) {
+      darts.run = false
+      darts.end = true
+      return
+    }
+    darts.cube2.visible = false
+    moveTrack3D(darts, 200)
+
+  }
+  darts.renderer.render(darts.scene, darts.camera);
+}
 
 class Darts1 extends ThreeScene {
-  constructor(camera) {
-
-    super(camera)
+  constructor() {
+    super()
     this.run = false
     this.end = false
   }
@@ -24,29 +35,23 @@ class Darts1 extends ThreeScene {
 
     const loader = new GLTFLoader();
     const that = this
-    loader.load("./model/orange1.glb", function (gltf) {
+    loader.load("./model/demo.glb", function (gltf) {
       that.child = gltf.scene;
       that.child.scale.x = 60;
       that.child.scale.y = 60;
       that.child.scale.z = 60;
-      that.child.position.z = 200
-      that.child.rotation.x = -Math.PI/2
-      that.child.scale.x = 60
+      that.child.position.z = 700
       that.scene.add(that.child);
     });
-
-    const fbxloader = new FBXLoader()
-
-    loader.load("./model/cup.glb", function (gltf) {
-        that.cup = gltf.scene;
-        that.cup.scale.x = 100;
-        that.cup.scale.y = 100;
-        that.cup.scale.z = 100;
-        that.cup.position.z = 200
-        that.cup.position.y = -600
-        that.scene.add(that.cup);
-      });
   }
+  /**
+   * 输入
+   * @param {string} img 
+   * @param {number} width 
+   * @param {number} height 
+   * @returns 
+   */
+
 
   // 绑定飞镖移动的事件
   addEvent() {
@@ -81,33 +86,17 @@ class Darts1 extends ThreeScene {
 
     })
   }
-
-  move() {
-    if (this.run) {
-
-      if (this.child.position.z < 0) {
-        this.run = false
-        this.end = true
-        return
-      }
-      this.cube2.visible = false
-      moveTrack3D(this, 200)
-
-    }
-  }
 }
-
-
 
 export default function Canvas() {
 
   useEffect(() => {
-    const darts = new Darts1({ camera: { x: 1500, y: 0, z: 0 } })
+    const darts = new Darts1()
     darts.initScene()
     darts.loadObject()
-    darts.loadPlane("./img/orangeBg.jpg", 2000, 2000)
-    // darts.cube2 = darts.loadPlane("./img/demo1.png", 200, 200)  //new THREE.Mesh(geometry2, material2);
-    // darts.cube2.position.z = 20
+    darts.loadPlane("./img/bg.png", 2000, 2000)
+    darts.cube2 = darts.loadPlane("./img/demo1.png", 200, 200)  //new THREE.Mesh(geometry2, material2);
+    darts.cube2.position.z = 20
     darts.addEvent()
     animate(darts)
   }, [])

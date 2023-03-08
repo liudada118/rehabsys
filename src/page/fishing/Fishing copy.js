@@ -75,7 +75,7 @@ class sceneManag {
   // Magic goes here
   update() {
     // Animates our water
-    water.material.uniforms['time'].value += 1.0 / 60.0;
+    // water.material.uniforms['time'].value += 1.0 / 60.0;
 
     // Reposition our sphere to appear to float up and down
     const time = performance.now() * 0.001;
@@ -133,29 +133,31 @@ function buildSun() {
 
 function buildWater() {
   const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
-  const water = new Water(
+  const water = new THREE.Mesh(
     waterGeometry,
-    {
-      textureWidth: 512,
-      textureHeight: 512,
-      waterNormals: new THREE.TextureLoader().load('img/water.png', function (texture) {
-        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-      }),
-      alpha: 1.0,
-      sunDirection: new THREE.Vector3(),
-      sunColor: 0xffffff,
-      // waterColor: 0x001e0f,
-      distortionScale: 3.7,
-      fog: scene.fog !== undefined,
-      transparent : true,
-      opacity : 0.3,
-      transparent : true
-    }
+    new THREE.MeshBasicMaterial({
+      color: 'rgb(40,150,200)',
+      opacity: 0.3,
+      transparent: true, depthWrite: false,
+    })
   );
   water.rotation.x = - Math.PI / 2;
   scene.add(water);
-    
-  const waterUniforms = water.material.uniforms;
+  const waterGeometry1 = new THREE.PlaneGeometry(10000, 10000);
+  const water1 = new THREE.Mesh(
+    waterGeometry1,
+    new THREE.MeshBasicMaterial({
+      color: 'rgb(40,150,200)',
+      opacity: 0.3,
+      transparent: true,
+      depthWrite: false,
+    })
+  );
+  water1.rotation.x = - Math.PI / 2;
+  water1.position.y = 20
+  scene.add(water1);
+
+  // const waterUniforms = water.material.uniforms;
   return water;
 }
 
@@ -180,7 +182,7 @@ function buildFish() {
     side: THREE.DoubleSide
   });
   const cube = new THREE.Mesh(geometry, material);
-  cube.rotation.x = -Math.PI/3
+  cube.rotation.x = -Math.PI / 3
 
   scene.add(cube);
   return cube
@@ -223,7 +225,7 @@ export default function Fishing() {
     camera = buildCamera();
     sphere = buildSphere();
     sky = buildSky();
-    sun = buildSun();
+    // sun = buildSun();
     water = buildWater();
     orbitCon = setOrbitControls();
 

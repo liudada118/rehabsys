@@ -5,6 +5,7 @@
  * @param {number} speed 
  */
 export function moveTrack3D(model, speed) {
+  console.log(speed)
   model.child.position.x -= speed * Math.sin(model.child.rotation.y) * Math.cos(model.child.rotation.x)
   model.child.position.y += speed * Math.sin(model.child.rotation.x) * Math.cos(model.child.rotation.y)
   model.child.position.z -= speed * Math.cos(model.child.rotation.x) * Math.cos(model.child.rotation.y)
